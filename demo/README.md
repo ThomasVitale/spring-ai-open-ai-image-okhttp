@@ -73,3 +73,19 @@ http :8080/image
 ```
 
 The request still succeeds.
+
+Try now commenting again the previous code. This time will have Spring Boot use the Apache HttpClient automatically for the RestClient implementation.
+
+Uncomment the following dependency in the build.gradle file.
+
+```groovy
+implementation 'org.apache.httpcomponents.client5:httpclient5'
+```
+
+Re-run the application and call the endpoint.
+
+```shell
+http :8080/image
+```
+
+The request still succeeds.
