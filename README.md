@@ -1,0 +1,1 @@
+# spring-ai-open-ai-image-okhttp
