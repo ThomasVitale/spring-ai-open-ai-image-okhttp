@@ -38,7 +38,7 @@ Now, uncomment this code in `DemoApplication` to force using a JDK-based impleme
 
 ```java
 @Bean
-RestClientCustomizer restClientCustomizer() {
+RestClientCustomizer restClientCustomizer1() {
     return builder -> builder.requestFactory(ClientHttpRequestFactories.get(SimpleClientHttpRequestFactory.class, ClientHttpRequestFactorySettings.DEFAULTS));
 }
 ```
@@ -50,3 +50,26 @@ http :8080/image
 ```
 
 Now the request succeeds.
+
+Try now commenting again the previous code, and uncomment the following one to use the default RestClient implementation (OkHttp3 in this case), but customizing the timeout.
+
+```java
+@Bean
+RestClientCustomizer restClientCustomizer2() {
+    return restClientBuilder -> {
+        restClientBuilder
+                .requestFactory(new BufferingClientHttpRequestFactory(
+                        ClientHttpRequestFactories.get(ClientHttpRequestFactorySettings.DEFAULTS
+                                .withConnectTimeout(Duration.ofSeconds(10))
+                                .withReadTimeout(Duration.ofSeconds(60)))));
+    };
+}
+```
+
+Re-run the application and call the endpoint.
+
+```shell
+http :8080/image
+```
+
+The request still succeeds.
