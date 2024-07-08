@@ -1,0 +1,28 @@
+spring:
+  application:
+    name: demo
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        options:
+          model: gpt-3.5-turbo
+          temperature: 0.7
+      embedding:
+        options:
+          model: text-embedding-ada-002
+      image:
+        options:
+          model: dall-e-3
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://localhost:4318/v1/traces
