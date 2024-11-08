@@ -18,7 +18,7 @@ Run the Spring Boot application as follows to get Testcontainers automatically p
 ```
 
 Grafana is listening to port 3000. Check your container runtime to find the port to which is exposed to your localhost
-and access Grafana from http://localhost:. The credentials are `admin`/`admin`.
+and access Grafana from http://localhost:<port>. The credentials are `admin`/`admin`.
 
 The application is automatically configured to export metrics and traces to the Grafana LGTM stack via OpenTelemetry.
 In Grafana, you can query the traces from the "Explore" page, selecting the "Tempo" data source. You can also visualize metrics in "Explore > Metrics".
@@ -29,7 +29,7 @@ You can now call the application that will use OpenAI to perform generative AI o
 This example uses [httpie](https://httpie.io) to send HTTP requests.
 
 ```shell
-http :8080/image
+http :8080/image message=="Here comes the sun"
 ```
 
 The request will fail with a timeout exception from OkHttp3, which is used under the hood by RestClient.
@@ -46,7 +46,7 @@ RestClientCustomizer restClientCustomizer1() {
 Re-run the application and call the endpoint.
 
 ```shell
-http :8080/image
+http :8080/image message=="Here comes the sun"
 ```
 
 Now the request succeeds.
